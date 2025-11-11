@@ -1,5 +1,5 @@
 const FetchRQ = () => {
-  return <div>FetchRQ</div>;
+  return <h1>FetchRQ</h1>;
 };
 
 export default FetchRQ;
