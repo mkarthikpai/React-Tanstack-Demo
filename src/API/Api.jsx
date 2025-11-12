@@ -6,6 +6,6 @@ const api = axios.create({
 
 // To Fetch Data
 export const fetchPosts = async () => {
-  const res = await api.get("/posts");
+  const res = await api.get("/posts?_start=0&_limit=3");
   return res.status === 200 ? res?.data : [];
 };

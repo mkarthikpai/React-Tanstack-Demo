@@ -3,11 +3,18 @@ import { fetchPosts } from "../API/Api";
 
 const FetchRQ = () => {
   // Tanstack UseQuery
-  const { data } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["posts"], //UseState
     queryFn: fetchPosts, //UseEffect
   });
 
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error: {error.message || "Something went wrong!"}</p>;
+  }
   return (
     <div>
       <ul className="section-accordion">
