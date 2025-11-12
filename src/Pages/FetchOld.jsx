@@ -11,7 +11,7 @@ const FetchOld = () => {
   const getPostsData = async () => {
     try {
       const res = await fetchPosts();
-      res.status === 200 ? setPosts(res?.data) : [];
+      setPosts(res);
     } catch (error) {
       console.log(error);
       return [];
