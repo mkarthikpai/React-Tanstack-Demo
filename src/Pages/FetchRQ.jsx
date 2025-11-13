@@ -6,6 +6,8 @@ const FetchRQ = () => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["posts"], //UseState
     queryFn: fetchPosts, //UseEffect
+    // gcTime: 1000, //Time to store data in cache , default its 5min
+    staleTime: 10000, //Till this time API call will not happen from the time its Fresh and moved to stale
   });
 
   if (isPending) {
