@@ -7,7 +7,9 @@ const FetchRQ = () => {
     queryKey: ["posts"], //UseState
     queryFn: fetchPosts, //UseEffect
     // gcTime: 1000, //Time to store data in cache , default its 5min
-    staleTime: 10000, //Till this time API call will not happen from the time its Fresh and moved to stale
+    // staleTime: 10000, //Till this time API call will not happen from the time its Fresh and moved to stale
+    refetchInterval: 1000, //Polling Concept , which acts just like GROW , every second automatically calls the API
+    refetchIntervalInBackground: true, // Used to call API even when im not active in the tab/screen
   });
 
   if (isPending) {
