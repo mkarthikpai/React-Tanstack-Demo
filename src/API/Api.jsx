@@ -19,3 +19,9 @@ export const fetchInvPost = async (id) => {
     console.log(error);
   }
 };
+
+// To fetch Pagination
+export const fetchPaginatedPosts = async (pageNumber) => {
+  const res = await api.get(`/posts?_start=${pageNumber}&_limit=3`);
+  return res.status === 200 ? res?.data : [];
+};
