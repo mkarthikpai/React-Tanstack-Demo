@@ -25,3 +25,9 @@ export const fetchPaginatedPosts = async (pageNumber) => {
   const res = await api.get(`/posts?_start=${pageNumber}&_limit=3`);
   return res.status === 200 ? res?.data : [];
 };
+
+// To Delete Post
+
+export const deletePost = (id) => {
+  return api.delete(`/posts/${id}`);
+};
