@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { deletePost, fetchPaginatedPosts } from "../API/Api";
+import { deletePost, fetchPaginatedPosts, updatePost } from "../API/Api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -20,15 +20,30 @@ const FetchPagination = () => {
     placeholderData: keepPreviousData, //When clicking on Next it was showing loading which is not good user experience so to avoid that use this, which holds previous data and fetches and then shows new.
   });
 
-  // Mutation function to delte a post
+  // Mutation function to delete a post
   const deleteMutation = useMutation({
     mutationFn: (id) => deletePost(id),
     onSuccess: (data, id) => {
-      // Data is confirmation message and Id is the card id deleted
+      // Data is confirmation message which will be object and Id is the card id deleted
       queryClient.setQueryData(["pageposts", pageNumber], (curElem) => {
         return curElem?.filter((post) => post.id !== id);
       });
       // queryClient.setQueryData used to access cache data and display updated data as per the condition
+    },
+  });
+
+  // Mutation function to Update a post
+  const updateMutation = useMutation({
+    mutationFn: (id) => updatePost(id),
+    onSuccess: (apiData, postId) => {
+      console.log(apiData, postId);
+      queryClient.setQueryData(["pageposts", pageNumber], (postsData) => {
+        return postsData?.map((currPost) => {
+          return currPost.id === postId
+            ? { ...currPost, title: apiData.data.title }
+            : currPost;
+        });
+      });
     },
   });
 
@@ -52,6 +67,7 @@ const FetchPagination = () => {
                 <p>{body}</p>
               </NavLink>
               <button onClick={() => deleteMutation.mutate(id)}>Delete</button>
+              <button onClick={() => updateMutation.mutate(id)}>Update</button>
             </li>
           );
         })}

@@ -31,3 +31,9 @@ export const fetchPaginatedPosts = async (pageNumber) => {
 export const deletePost = (id) => {
   return api.delete(`/posts/${id}`);
 };
+
+// To Update Post
+
+export const updatePost = (id) => {
+  return api.patch(`/posts/${id}`, { title: "This is a updated text" });
+};
