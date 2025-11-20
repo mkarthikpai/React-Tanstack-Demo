@@ -37,3 +37,17 @@ export const deletePost = (id) => {
 export const updatePost = (id) => {
   return api.patch(`/posts/${id}`, { title: "This is a updated text" });
 };
+
+// Infinite Scrolling
+
+export const fetchUsers = async ({ pageParam = 1 }) => {
+  // pageParam is property provided useInfiniteQuery
+  try {
+    const res = await axios.get(
+      `https://api.github.com/users?per_page=10&page=${pageParam}`
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
